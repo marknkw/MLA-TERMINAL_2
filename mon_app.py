@@ -67,8 +67,8 @@ def olhoPiscando(eyes):
         clear()
         for i in eyes[1]:
             print(i)
-        sleep(0.1)
-        winsound.Beep(randint(300, 450), 160)
+        sleep(0.01)
+        winsound.Beep(randint(400, 450), 130)
         clear()
         for i in eyes[2]:
             print(i)
