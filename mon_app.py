@@ -25,8 +25,9 @@ def clear():
 
 def read_eyes():
     """
-    The read_eyes function reads in the three eye files and returns a list of lists.
-    The outer list contains 3 elements, each element is a list containing all lines from an eye file.
+    The read_eyes function reads in the three eye files and returns a list of 
+    lists. the outer list contains 3 elements, each element is a list
+    containing all lines from an eye file.
 
 
     :return: A list of lists
@@ -56,7 +57,7 @@ def olhoPiscando(eyes):
     It takes in an array of arrays, and uses that to print out the eyes.
 
     :param eyes: Determine the eyes that will be printed
-    :no returm
+    :no return
     """
 
     while True:
