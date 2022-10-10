@@ -1,13 +1,21 @@
-#System.Random random = new();
-#int randomPitch = random.Next(400, 450);
-#int beepPause = 140;
-#Console.Beep(randomPitch, 140);
-#Thread.Sleep(beepPause);
-#Console.Beep(randomPitch + random.Next(-20, 50), 140);
-
 #Mostra sequência do olho piscando
 
-import time
+from random import randint
+from time import sleep
+import winsound
+
+import os
+
+def clear():
+    """
+    The clear function clears the screen.
+    It is used to make the output of multiple function calls easier to read by 
+    clearing the screen before each call.
+    
+    :return: The output of the os
+    """
+    return os.system('cls' if os.name == 'nt' else 'clear')
+
 def read_eyes():
     """
     The read_eyes function reads in the three eye files and returns a list of lists.
@@ -23,6 +31,9 @@ def read_eyes():
          eye_01 = file_1.readlines()
          eye_02 = file_2.readlines()
          eye_03 = file_3.readlines()
+         file_1.close()
+         file_2.close()
+         file_3.close()
          list.append(eye_01)
          list.append(eye_02)
          list.append(eye_03)
@@ -30,13 +41,28 @@ def read_eyes():
 
 eyes = read_eyes()
 
+
 def olhoPiscando(eyes):
-    for i in eyes[0]:
-        print(i)
-    for i in eyes[1]:
-        print(i)
-    for i in eyes[2]:
-        print(i)
+    """
+    The olhoPiscando function prints out the eyes of a smiley face.
+    It takes in an array of arrays, and uses that to print out the eyes.
+    
+    :param eyes: Determine the eyes that will be printed
+    :return: The eyes variable
+    """
+    while True:
+        for i in eyes[0]:
+            print(i)
+        sleep(randint(2,5))
+        clear()
+        for i in eyes[1]:
+            print(i)
+        sleep(0.4)
+        winsound.Beep(randint(400, 450), 160)
+        clear()
+        for i in eyes[2]:
+            print(i)
+        clear()
 
 olhoPiscando(eyes)
 
