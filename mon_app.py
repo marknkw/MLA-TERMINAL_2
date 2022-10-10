@@ -1,15 +1,27 @@
 # Mostra sequência do olho piscando
 
+from ast import Try
 from random import randint
+import sys
 
 
 from time import sleep
+import time
 
 
 import winsound
 
 
 import os
+
+import threading
+
+#Função que printa letra por letra de uma frase com delay
+def delay_print(s):
+    for c in s:
+        sys.stdout.write(c)
+        sys.stdout.flush()
+        time.sleep(0.01)
 
 
 def clear():
@@ -23,7 +35,7 @@ def clear():
     return os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def read_eyes():
+def readEyes():
     """
     The read_eyes function reads in the three eye files and returns a list of 
     lists. the outer list contains 3 elements, each element is a list
@@ -46,9 +58,6 @@ def read_eyes():
         list.append(eye_02)
         list.append(eye_03)
         return list
-
-
-eyes = read_eyes()
 
 
 def olhoPiscando(eyes):
@@ -74,5 +83,49 @@ def olhoPiscando(eyes):
             print(i)
         clear()
 
+def boot():
+    with open('resources/boot/boot.txt', 'r') as f:
+    # Comment: 
+        for i in f:
+            delay_print(i)
+            winsound.Beep(randint(400, 450), 130)
+        # end open file)
 
-olhoPiscando(eyes)
+boot()
+list = readEyes()
+olhoPiscando(list)
+
+'''def programa():
+   
+        
+class MyThread(threading.Thread):
+    def __init__(self, *args, **kwargs):
+        # creating thread
+        eyes = read_eyes()
+        
+        super(MyThread, self).__init__(*args, **kwargs)
+        self._stop = threading.Event()
+
+        t1 = threading.Thread(target=eyes = olhoPiscando(eyes), args=(10,))
+        t2 = threading.Thread(target=print_cube, args=(10,))
+
+        # function using _stop function
+        def stop(self):
+            self._stop.set()
+
+        def stopped(self):
+            return self._stop.isSet()
+        
+       def run(self):
+        while True:
+            if self.stopped():
+                return
+    
+        # wait until thread 1 is completely executed
+        t1.join()
+        # wait until thread 2 is completely executed
+        t2.join()
+    
+        # both threads completely executed
+        delay_print("Exiting terminal...")
+'''
