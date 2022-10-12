@@ -2,6 +2,7 @@
 
 from ast import Try
 import base64
+from itertools import chain
 from random import randint
 import sys
 
@@ -25,14 +26,14 @@ def delay_print(s):
     """
     The delay_print function prints the input string character by by, with a 100ms delay between each character.
     This is helpful for simulating print statements that take time to execute.
-    
+
     :param s: Pass the string that you want to print
     :return: nothing
     """
     for c in s:
         sys.stdout.write(c)
         sys.stdout.flush()
-        time.sleep(0.01)
+        time.sleep(0.04)
 
 
 def clear():
@@ -103,82 +104,46 @@ def olhoPiscando(eyes):
     :param eyes: Pass the eyes list to the olhopiscando function
     :return: The function itself
     """
-    
+
     while True:
-        try:
-             for i in eyes[0]:
-                print(i)
-             print("press-any-key")
-             sleep(randint(2, 5))
-             if keyboard.on_press_key():
-                break
-        except:
-         clear()
-        
-        try:
-            for i in eyes[1]:
                 print(i)
             print("press-any-key")
             sleep(0.01)
             if keyboard.on_press_key():
                 break
         except:
-            clear()
+        for i in eyes[0]:
+            print(i)
         for i in eyes[2]:
             print(i)
         print("press-any-key")
-        try:
-            if keyboard.on_press_key():
-                break
-        except:
-            clear()
+        clear()
         for i in eyes[3]:
             print(i)
         print("press-any-key")
-        try:
-            if keyboard.on_press_key():
-                break
-        except:
-            sleep(randint(2, 5))
-            winsound.Beep(randint(400, 450), 130)
-            clear()
+        sleep(randint(2, 5))
+        winsound.Beep(randint(400, 450), 130)
+        clear()
         for i in eyes[4]:
             print(i)
         print("press-any-key")
-        try:
-            if keyboard.on_press_key():
-                break
-        except:
-            sleep(0.5)
-            clear()
-        try:
-            for i in eyes[5]:
+        clear()
+        for i in eyes[5]:
             print(i)
             print("press-any-key")
-            if keyboard.on_press_key():
-                break
-        except:
-            sleep(0.5)
-            clear()
+            
         for i in eyes[6]:
             print(i)
         print("press-any-key")
-        try:
-            if keyboard.on_press_key():
-                break
-        except:
-            sleep(0.5)
-            clear()
+        sleep(0.5)
+        clear()
         for i in eyes[7]:
             print(i)
         print("press-any-key")
         try:
-            if keyboard.on_press_key():
-                break
-        except:
-            sleep(randint(2, 5))
-            winsound.Beep(randint(400, 450), 130)
-            clear()
+        sleep(randint(2, 5))
+        winsound.Beep(randint(400, 450), 130)
+        clear()
                        
         olhoPiscando(eyes)
 
@@ -204,6 +169,7 @@ def boot():
         
 
 
+# sourcery skip: avoid-builtin-shadow
 boot()
 list = readEyes()
 olhoPiscando(list)
