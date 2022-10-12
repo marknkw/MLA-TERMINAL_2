@@ -106,14 +106,16 @@ def olhoPiscando(eyes):
     """
 
     while True:
-                print(i)
-            print("press-any-key")
-            sleep(0.01)
-            if keyboard.on_press_key():
-                break
-        except:
         for i in eyes[0]:
             print(i)
+        print("press-any-key")
+        sleep(randint(2, 5))
+        clear()
+        for i in eyes[1]:
+            print(i)
+        print("press-any-key")
+        sleep(0.01)
+        clear()
         for i in eyes[2]:
             print(i)
         print("press-any-key")
@@ -140,7 +142,6 @@ def olhoPiscando(eyes):
         for i in eyes[7]:
             print(i)
         print("press-any-key")
-        try:
         sleep(randint(2, 5))
         winsound.Beep(randint(400, 450), 130)
         clear()
