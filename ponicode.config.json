@@ -1,0 +1,9 @@
+{
+    "schemaVersion": "1",
+    "python": {
+        "name": "MLA-TERMINAL",
+        "rootDir": "./",
+        "testLocationStrategy": "relativeToProjectRoot",
+        "testLocationFolder": "./ponicode"
+    }
+}

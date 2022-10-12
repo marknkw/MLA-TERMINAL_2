@@ -56,43 +56,26 @@ def readEyes():
 
     :return: A list of lists
     """
-    with open('resources/eye_01.txt', 'r+') as file_1,\
-         open('resources/eye_02.txt', 'r+') as file_2,\
-         open('resources/eye_03.txt', 'r+') as file_3,\
-         open('resources/eye_04.txt', 'r+') as file_4,\
-         open('resources/eye_05.txt', 'r+') as file_5,\
-         open('resources/eye_06.txt', 'r+') as file_6,\
-         open('resources/eye_07.txt', 'r+') as file_7,\
-         open('resources/eye_08.txt', 'r+') as file_8:
+    with open('resources/eye_01.txt', 'r+') as file_1, open('resources/eye_02.txt', 'r+') as file_2, open('resources/eye_03.txt', 'r+') as file_3, open('resources/eye_04.txt', 'r+') as file_4, open('resources/eye_05.txt', 'r+') as file_5, open('resources/eye_06.txt', 'r+') as file_6, open('resources/eye_07.txt', 'r+') as file_7, open('resources/eye_08.txt', 'r+') as file_8:
 
+        eye_01 = file_1.readlines()
+        eye_02 = file_2.readlines()
+        eye_03 = file_3.readlines()
+        eye_04 = file_4.readlines()
+        eye_05 = file_5.readlines()
+        eye_06 = file_6.readlines()
+        eye_07 = file_7.readlines()
+        eye_08 = file_8.readlines()
 
-         list = []
-         eye_01 = file_1.readlines()
-         eye_02 = file_2.readlines()
-         eye_03 = file_3.readlines()
-         eye_04 = file_4.readlines()
-         eye_05 = file_5.readlines()
-         eye_06 = file_6.readlines()
-         eye_07 = file_7.readlines()
-         eye_08 = file_8.readlines()              
-        
-         file_1.close()
-         file_2.close()
-         file_3.close()
-         file_4.close()
-         file_5.close()
-         file_6.close()
-         file_7.close()
-         file_8.close()
-         list.append(eye_01)
-         list.append(eye_02)
-         list.append(eye_03)
-         list.append(eye_04)
-         list.append(eye_05)
-         list.append(eye_06)
-         list.append(eye_07)
-         list.append(eye_08)
-         return list
+        file_1.close()
+        file_2.close()
+        file_3.close()
+        file_4.close()
+        file_5.close()
+        file_6.close()
+        file_7.close()
+        file_8.close()
+        return [eye_01, eye_02, eye_03, eye_04, eye_05, eye_06, eye_07, eye_08]
 
 
 def olhoPiscando(eyes):
@@ -100,7 +83,7 @@ def olhoPiscando(eyes):
     The olhoPiscando function prints out the eyes of a cartoon face.
     It does this by printing out each line of the eye in order, and then waiting for a keypress before moving on to the next line.
     The function will continue to do this until it is interrupted by a keypress.
-    
+
     :param eyes: Pass the eyes list to the olhopiscando function
     :return: The function itself
     """
@@ -133,7 +116,7 @@ def olhoPiscando(eyes):
         for i in eyes[5]:
             print(i)
             print("press-any-key")
-            
+
         for i in eyes[6]:
             print(i)
         print("press-any-key")
@@ -145,7 +128,7 @@ def olhoPiscando(eyes):
         sleep(randint(2, 5))
         winsound.Beep(randint(400, 450), 130)
         clear()
-                       
+
         olhoPiscando(eyes)
 
 
@@ -158,16 +141,15 @@ def boot():
     :return: nothing
     """
     with open('resources/boot/boot.txt', 'r') as f:
-        # Comment:
         for i in f:
-            winsound.PlaySound('typ.wav', winsound.SND_LOOP|winsound.SND_ASYNC)
+            winsound.PlaySound(
+                'typ.wav', winsound.SND_LOOP | winsound.SND_ASYNC)
             delay_print(i)
-            winsound.PlaySound('typ.wav', winsound.SND_PURGE|winsound.SND_ASYNC)
-            
-        # end open file)
+            winsound.PlaySound(
+                'typ.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
+
         delay_print('Loading...')
         time.sleep(1)
-        
 
 
 # sourcery skip: avoid-builtin-shadow
