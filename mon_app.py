@@ -1,28 +1,21 @@
 # Mostra sequência do olho piscando
 
-from ast import Try
 import base64
+import os
+import sys
+import time
+import winsound
+from ast import Try
 from itertools import chain
 from random import randint
-import sys
-
-
 from time import sleep
-import time
 
-
-import winsound
 import keyboard
-
-import os
-
-import threading
-
 
 # Função que printa letra por letra de uma frase com delay
 
 
-def delay_print(s):
+def delay_print(se) -> None:
     """
     The delay_print function prints the input string character by by, with a 100ms delay between each character.
     This is helpful for simulating print statements that take time to execute.
@@ -30,13 +23,13 @@ def delay_print(s):
     :param s: Pass the string that you want to print
     :return: nothing
     """
-    for c in s:
-        sys.stdout.write(c)
+    for ce in se:
+        sys.stdout.write(ce)
         sys.stdout.flush()
         time.sleep(0.04)
 
 
-def clear():
+def clear() -> int:
     """
     The clear function clears the screen.
     It is used to make the output of multiple function calls easier to read by 
@@ -47,7 +40,7 @@ def clear():
     return os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def readEyes():
+def readeyes() -> list[list[str]]:  # sourcery skip: low-code-quality
     """
     The read_eyes function reads in the three eye files and returns a list of 
     lists. the outer list contains 3 elements, each element is a list
@@ -56,7 +49,7 @@ def readEyes():
 
     :return: A list of lists
     """
-    with open('resources/eye_01.txt', 'r+') as file_1, open('resources/eye_02.txt', 'r+') as file_2, open('resources/eye_03.txt', 'r+') as file_3, open('resources/eye_04.txt', 'r+') as file_4, open('resources/eye_05.txt', 'r+') as file_5, open('resources/eye_06.txt', 'r+') as file_6, open('resources/eye_07.txt', 'r+') as file_7, open('resources/eye_08.txt', 'r+') as file_8:
+    with open('resources/eye_01.txt', 'r') as file_1, open('resources/eye_02.txt', 'r') as file_2, open('resources/eye_03.txt', 'r') as file_3, open('resources/eye_04.txt', 'r') as file_4, open('resources/eye_05.txt', 'r+') as file_5, open('resources/eye_06.txt', 'r+') as file_6, open('resources/eye_07.txt', 'r+') as file_7, open('resources/eye_08.txt', 'r+') as file_8:
 
         eye_01 = file_1.readlines()
         eye_02 = file_2.readlines()
@@ -78,16 +71,11 @@ def readEyes():
         return [eye_01, eye_02, eye_03, eye_04, eye_05, eye_06, eye_07, eye_08]
 
 
-def olhoPiscando(eyes):
+def olhopiscando(eyes) -> None:  # sourcery skip: low-code-quality
     """
-    The olhoPiscando function prints out the eyes of a cartoon face.
-    It does this by printing out each line of the eye in order, and then waiting for a keypress before moving on to the next line.
-    The function will continue to do this until it is interrupted by a keypress.
-
-    :param eyes: Pass the eyes list to the olhopiscando function
-    :return: The function itself
+    The olhoPiscando function prints out the eyes of a cartoon face.It does this by printing out each line of the eye in order, and then waiting for a keypress before moving on to the next line.
+    The function will continue to do this until it is interrupted by a keypress. :param eyes: Pass the eyes list to the olhopiscando function :return: The function itself
     """
-
     while True:
         for i in eyes[0]:
             print(i)
@@ -129,10 +117,10 @@ def olhoPiscando(eyes):
         winsound.Beep(randint(400, 450), 130)
         clear()
 
-        olhoPiscando(eyes)
+        olhopiscando(eyes)
 
 
-def boot():
+def boot() -> None:
     """
     The boot function is used to print the boot sequence of the game. It uses a for loop to iterate through each line in 
     the text file and prints it with a delay between each character printed. The function also plays an audible tone at random 
@@ -154,8 +142,7 @@ def boot():
 
 # sourcery skip: avoid-builtin-shadow
 boot()
-list = readEyes()
-olhoPiscando(list)
+olhopiscando(readeyes())
 
 '''def programa():
    
@@ -187,7 +174,6 @@ class MyThread(threading.Thread):
         t1.join()
         # wait until thread 2 is completely executed
         t2.join()
-    
-        # both threads completely executed
+          # both threads completely executed
         delay_print("Exiting terminal...")
 '''
