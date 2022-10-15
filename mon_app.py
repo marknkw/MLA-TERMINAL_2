@@ -1,16 +1,12 @@
-# Mostra sequência do olho piscando
 
+# Mostra sequência do olho piscando
 import base64
 import os
 import sys
 import time
 import winsound
-from ast import Try
-from itertools import chain
 from random import randint
 from time import sleep
-
-import keyboard
 
 # Função que printa letra por letra de uma frase com delay
 

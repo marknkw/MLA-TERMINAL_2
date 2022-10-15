@@ -9,10 +9,13 @@ refactor:
     - comment
   python_version: '3.9'
 
-rules: []
+rules:
+  - id: raise-not-implemented
+    description: NotImplemented is not an Exception, raise NotImplementedError instead
+    pattern: raise NotImplemented
 
 metrics:
-  quality_threshold: 80
+  quality_threshold: 50
 
 github:
   labels: []
