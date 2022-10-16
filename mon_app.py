@@ -12,6 +12,8 @@ from random import randint
 from time import sleep
 from pyparsing import Literal
 
+from sqlalchemy import true
+
 # Função que printa letra por letra de uma frase com delay
 
 
@@ -120,7 +122,7 @@ def olhopiscando(eyes) -> None:  # sourcery skip: low-code-quality
         olhopiscando(eyes)
 
 
-def boot() -> NoReturn:
+def boot() -> NoReturn:  # type: ignore
     """
     The boot function is used to print the boot sequence of the game. It uses a for loop to iterate through each line in 
     the text file and prints it with a delay between each character printed. The function also plays an audible tone at random 
@@ -137,29 +139,34 @@ def boot() -> NoReturn:
                 'typ.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
 
         delay_print('Loading...')
-    return None
+
         
-def programa() -> NoReturn:
+def programa() -> None:
     while True:
-        delay_print("Press any key to continue to continue: ")
-        ze = input('...')
-        
+        delay_print("Press any key to continue... ")
+
+        input()
+                
         with open('./resources/terminals/help/help.txt', 'r', encoding="utf-8") as file:
             for i in file:
+                winsound.PlaySound(
+                'typ.wav', winsound.SND_LOOP | winsound.SND_ASYNC)
                 delay_print(i)
-                
+                winsound.PlaySound(
+                'typ.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
+        
+        print("\n")    
                 
 
         exit_var = input('Waiting for your input: ')
-
+        
         if exit_var == "exit":
             exit()
+    return None
     
-
-           
-
-
+boot()
 programa()
+
         
 '''class MyThread(threading.Thread):
     def __init__(self, *args, **kwargs) -> None:    
