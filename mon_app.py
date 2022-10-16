@@ -1,18 +1,12 @@
 
 # Mostra sequência do olho piscando
-import base64
-from encodings import utf_8
 import os
 import sys
-import threading
 import time
-from typing import NoReturn
 import winsound
 from random import randint
 from time import sleep
-from pyparsing import Literal
 
-from sqlalchemy import true
 
 # Função que printa letra por letra de uma frase com delay
 
