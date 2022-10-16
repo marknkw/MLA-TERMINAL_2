@@ -122,7 +122,7 @@ def olhopiscando(eyes) -> None:  # sourcery skip: low-code-quality
         olhopiscando(eyes)
 
 
-def boot() -> NoReturn:  # type: ignore
+def boot() -> None:  # type: ignore
     """
     The boot function is used to print the boot sequence of the game. It uses a for loop to iterate through each line in 
     the text file and prints it with a delay between each character printed. The function also plays an audible tone at random 
@@ -139,7 +139,7 @@ def boot() -> NoReturn:  # type: ignore
                 'typ.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
 
         delay_print('Loading...')
-
+    return None
         
 def programa() -> None:
     while True:
