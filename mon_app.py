@@ -1,12 +1,16 @@
 
 # Mostra sequência do olho piscando
 import base64
+from encodings import utf_8
 import os
 import sys
+import threading
 import time
+from typing import NoReturn
 import winsound
 from random import randint
 from time import sleep
+from pyparsing import Literal
 
 # Função que printa letra por letra de uma frase com delay
 
@@ -45,8 +49,8 @@ def readeyes() -> list[list[str]]:  # sourcery skip: low-code-quality
 
     :return: A list of lists
     """
-    with open('resources/eye_01.txt', 'r') as file_1, open('resources/eye_02.txt', 'r') as file_2, open('resources/eye_03.txt', 'r') as file_3, open('resources/eye_04.txt', 'r') as file_4, open('resources/eye_05.txt', 'r+') as file_5, open('resources/eye_06.txt', 'r+') as file_6, open('resources/eye_07.txt', 'r+') as file_7, open('resources/eye_08.txt', 'r+') as file_8:
-
+    with open('resources/eyes/eye_01.txt', 'r', encoding='utf-8') as file_1, open('resources/eyes/eye_02.txt', 'r', encoding='utf-8') as file_2, open('resources/eyes/eye_03.txt', 'r', encoding='utf-8') as file_3, open('resources/eyes/eye_04.txt', 'r', encoding='utf-8') as file_4, open('resources/eyes/eye_05.txt', 'r', encoding='utf-8') as file_5, open('resources/eyes/eye_06.txt', 'r', encoding='utf-8') as file_6, open('resources/eyes/eye_07.txt', 'r', encoding='utf-8') as file_7, open('resources/eyes/eye_08.txt', 'r', encoding='utf-8') as file_8:
+        
         eye_01 = file_1.readlines()
         eye_02 = file_2.readlines()
         eye_03 = file_3.readlines()
@@ -116,7 +120,7 @@ def olhopiscando(eyes) -> None:  # sourcery skip: low-code-quality
         olhopiscando(eyes)
 
 
-def boot() -> None:
+def boot() -> NoReturn:
     """
     The boot function is used to print the boot sequence of the game. It uses a for loop to iterate through each line in 
     the text file and prints it with a delay between each character printed. The function also plays an audible tone at random 
@@ -124,8 +128,8 @@ def boot() -> None:
 
     :return: nothing
     """
-    with open('resources/boot/boot.txt', 'r') as f:
-        for i in f:
+    with open('./resources/boot/boot.txt', 'r') as fe:
+        for i in fe:
             winsound.PlaySound(
                 'typ.wav', winsound.SND_LOOP | winsound.SND_ASYNC)
             delay_print(i)
@@ -133,26 +137,40 @@ def boot() -> None:
                 'typ.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
 
         delay_print('Loading...')
-        time.sleep(1)
-
-
-# sourcery skip: avoid-builtin-shadow
-boot()
-olhopiscando(readeyes())
-
-'''def programa():
-   
+    return None
         
-class MyThread(threading.Thread):
-    def __init__(self, *args, **kwargs):
+def programa() -> NoReturn:
+    while True:
+        delay_print("Press any key to continue to continue: ")
+        ze = input('...')
+        
+        with open('./resources/terminals/help/help.txt', 'r', encoding="utf-8") as file:
+            for i in file:
+                delay_print(i)
+                
+                
+
+        exit_var = input('Waiting for your input: ')
+
+        if exit_var == "exit":
+            exit()
+    
+
+           
+
+
+programa()
+        
+'''class MyThread(threading.Thread):
+    def __init__(self, *args, **kwargs) -> None:    
         # creating thread
-        eyes = read_eyes()
-        
+        eyes = readeyes()
+            
         super(MyThread, self).__init__(*args, **kwargs)
         self._stop = threading.Event()
 
-        t1 = threading.Thread(target=eyes = olhoPiscando(eyes), args=(10,))
-        t2 = threading.Thread(target=print_cube, args=(10,))
+        t1 = threading.Thread(target= olhopiscando(eyes), args=(10,))
+        t2 = threading.Thread(target=, args=(10,))
 
         # function using _stop function
         def stop(self):
@@ -160,16 +178,16 @@ class MyThread(threading.Thread):
 
         def stopped(self):
             return self._stop.isSet()
+            
+         def run(self):
+            while True:
+                if self.stopped():
+                    return
         
-       def run(self):
-        while True:
-            if self.stopped():
-                return
-    
-        # wait until thread 1 is completely executed
+        #wait until thread 1 is completely executed
         t1.join()
         # wait until thread 2 is completely executed
         t2.join()
-          # both threads completely executed
-        delay_print("Exiting terminal...")
-'''
+        # both threads completely executed
+        delay_print("Exiting terminal...")'''
+
