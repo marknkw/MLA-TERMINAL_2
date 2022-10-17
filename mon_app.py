@@ -46,7 +46,7 @@ def readeyes() -> list[list[str]]:  # sourcery skip: low-code-quality
     :return: A list of lists
     """
     with open('resources/eyes/eye_01.txt', 'r', encoding='utf-8') as file_1, open('resources/eyes/eye_02.txt', 'r', encoding='utf-8') as file_2, open('resources/eyes/eye_03.txt', 'r', encoding='utf-8') as file_3, open('resources/eyes/eye_04.txt', 'r', encoding='utf-8') as file_4, open('resources/eyes/eye_05.txt', 'r', encoding='utf-8') as file_5, open('resources/eyes/eye_06.txt', 'r', encoding='utf-8') as file_6, open('resources/eyes/eye_07.txt', 'r', encoding='utf-8') as file_7, open('resources/eyes/eye_08.txt', 'r', encoding='utf-8') as file_8:
-        
+
         eye_01 = file_1.readlines()
         eye_02 = file_2.readlines()
         eye_03 = file_3.readlines()
@@ -75,42 +75,41 @@ def olhopiscando(eyes) -> None:  # sourcery skip: low-code-quality
     while True:
         for i in eyes[0]:
             print(i)
-        print("press-any-key")
+
         sleep(randint(2, 5))
         clear()
         for i in eyes[1]:
             print(i)
-        print("press-any-key")
-        sleep(0.01)
+
+        sleep(0.02)
         clear()
         for i in eyes[2]:
             print(i)
-        print("press-any-key")
+
         clear()
         for i in eyes[3]:
             print(i)
-        print("press-any-key")
-        sleep(randint(2, 5))
+
+        sleep(randint(1, 2))
         winsound.Beep(randint(400, 450), 130)
         clear()
         for i in eyes[4]:
             print(i)
-        print("press-any-key")
+
         clear()
         for i in eyes[5]:
             print(i)
-            print("press-any-key")
 
         for i in eyes[6]:
             print(i)
-        print("press-any-key")
-        sleep(0.5)
+
+        sleep(0.2)
         clear()
         for i in eyes[7]:
             print(i)
-        print("press-any-key")
-        sleep(randint(2, 5))
-        winsound.Beep(randint(400, 450), 130)
+
+        sleep(randint(1, 3))
+        winsound.Beep(randint(400, 500), 130)
         clear()
 
         olhopiscando(eyes)
@@ -125,43 +124,51 @@ def boot() -> None:  # type: ignore
     :return: nothing
     """
     with open('./resources/boot/boot.txt', 'r') as fe:
+        winsound.PlaySound(
+            './resources/sounds/TerminalPowerOn.wav', winsound.SND_LOOP| winsound.SND_NOSTOP)
+
         for i in fe:
             winsound.PlaySound(
-                'typ.wav', winsound.SND_LOOP | winsound.SND_ASYNC)
+                './resources/sounds/TerminalTypingComputer.wav', winsound.SND_LOOP | winsound.SND_ASYNC)
             delay_print(i)
-            winsound.PlaySound(
-                'typ.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
 
-        delay_print('Loading...')
-    return None
+        winsound.PlaySound(
+                './resources/sounds/TerminalSystemLoading.wav', winsound.SND_LOOP | winsound.SND_ASYNC)
+        delay_print('Loading...\n')
         
+    return None
+
+
 def programa() -> None:
     while True:
         delay_print("Press any key to continue... ")
 
         input()
-                
+
         with open('./resources/terminals/help/help.txt', 'r', encoding="utf-8") as file:
+            winsound.PlaySound(
+                './resources/sounds/TerminalPowerOn.wav', winsound.SND_LOOP | winsound.SND_ASYNC)
+
             for i in file:
                 winsound.PlaySound(
-                'typ.wav', winsound.SND_LOOP | winsound.SND_ASYNC)
+                    'TerminalTypingComputer.wav', winsound.SND_LOOP | winsound.SND_ASYNC)
                 delay_print(i)
                 winsound.PlaySound(
-                'typ.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
-        
-        print("\n")    
-                
+                    'TerminalTypingComputer.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
+
+        print("\n")
 
         exit_var = input('Waiting for your input: ')
-        
+
         if exit_var == "exit":
             exit()
-    return None
-    
+
+
+#olhopiscando(readeyes())
 boot()
 programa()
 
-        
+
 '''class MyThread(threading.Thread):
     def __init__(self, *args, **kwargs) -> None:    
         # creating thread
@@ -191,4 +198,3 @@ programa()
         t2.join()
         # both threads completely executed
         delay_print("Exiting terminal...")'''
-
