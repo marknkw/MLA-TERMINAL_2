@@ -10,6 +10,9 @@ from sympy import O
 
 # Função que printa letra por letra de uma frase com delay
 
+for files in os.listdir(os.getcwd()):
+    with open('./resources/terminals/help/', 'r', encoding='utf-8') as file:
+
 
 def delay_print(se) -> None:
     """
@@ -32,6 +35,9 @@ def clear() -> int:
     :return: terminal reset
     """
     return os.system('cls' if os.name == 'nt' else 'clear')
+
+def waitForCommand():
+    exit_var = input('[guest@local]# ').rsplit('\n')
 
 
 def readeyes() -> list[list[str]]:  # type: ignore # sourcery skip: low-code-quality
