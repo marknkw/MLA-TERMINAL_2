@@ -80,7 +80,7 @@ def olhopiscando(eyes) -> None:  # sourcery skip: low-code-quality
         sleep(randint(2, 5))
         clear()
         for i in eyes[1]:
-            print(i)
+            print(i)    
 
         sleep(0.02)
         clear()
@@ -119,15 +119,21 @@ def olhopiscando(eyes) -> None:  # sourcery skip: low-code-quality
 def unknownCommand():
     while True:
         print("Unknow command. Type 'help' for list of available commands.")
-        input()
+        command = input().lower()
+        if command == 'help':
+            programa()
 
 
 def boot() -> None:  # type: ignore
 
+    winsound.PlaySound(
+                './resources/sounds/TerminalPowerOn.wav', winsound.SND_FILENAME | winsound.SND_NOSTOP)
+
     with open('./resources/boot/boot.txt', 'r') as fe:
+
         for i in fe:
             winsound.PlaySound(
-                './resources/sounds/TerminalTypingComputer.wav', winsound.SND_LOOP | winsound.SND_ASYNC)
+                './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
             delay_print(i)
 
     with open('./resources/boot/boot_2.txt', 'r') as fe:
@@ -142,32 +148,20 @@ def boot() -> None:  # type: ignore
             programa()
         unknownCommand()
 
-"""
-def blinkingCursor():
-
-
-def unknownCommand():
-    while True:
-        print("Unknow command. Type 'help' for list of available commands")
-        input("")"""
-
-
 def programa() -> None:
     while True:
         with open('./resources/terminals/help/help.txt', 'r', encoding="utf-8") as file:
-            winsound.PlaySound(
-                './resources/sounds/TerminalPowerOn.wav', winsound.SND_LOOP | winsound.SND_ASYNC)
 
             for i in file:
                 winsound.PlaySound(
-                    './resources/sounds/TerminalTypingComputer.wav', winsound.SND_LOOP | winsound.SND_ASYNC)
+                    './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
                 delay_print(i)
                 winsound.PlaySound(
                     './resources/sounds/TerminalTypingComputer.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
 
         print("\n")
 
-        exit_var = input('[guest@local]# ]').rsplit('\n')
+        exit_var = input('[guest@local]# ').rsplit('\n')
         if exit_var != "":
             exit()
 
