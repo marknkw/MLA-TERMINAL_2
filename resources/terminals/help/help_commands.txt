@@ -1,0 +1,5 @@
+list
+open <filename>
+help
+run mla
+exit

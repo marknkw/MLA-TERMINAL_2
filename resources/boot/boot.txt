@@ -5,4 +5,3 @@ Loading Milton Library Assistant..... Error: MLA unresponsive
 Initiating command prompt... Done.
 
 
-Library archive session ready.
