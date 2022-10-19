@@ -5,13 +5,18 @@ import time
 import winsound
 from random import randint
 from time import sleep
+import threading
 from sympy import O
+import os, glob
 
 
-# Função que printa letra por letra de uma frase com delay
+path = './resources/terminals/help'
+commandlist = []
+with open(path + '/' + "help_commands.txt", 'r+', encoding="utf-8") as f:
+    for i in f:
+        commandlist.append(i.rsplit(('\n')))
+    print(i)
 
-for files in os.listdir(os.getcwd()):
-    with open('./resources/terminals/help/', 'r', encoding='utf-8') as file:
 
 
 def delay_print(se) -> None:
@@ -39,8 +44,16 @@ def clear() -> int:
 def waitForCommand():
     exit_var = input('[guest@local]# ').rsplit('\n')
 
+piscandoolhos = 0
+def capturarThread() -> None:
+    """
+    It captures the input from the user and sets the global variable piscandoolhos to 1.
+    """
+    global piscandoolhos
+    input()
+    piscandoolhos = 1
 
-def readeyes() -> list[list[str]]:  # type: ignore # sourcery skip: low-code-quality
+def readeyes() -> list:  # type: ignore # sourcery skip: low-code-quality
     """
     The readeyes function reads in the text files containing the eye emojis and returns a list of lists.
     The outer list contains 8 elements, each element is a list containing all of the lines from an individual file.
@@ -67,10 +80,10 @@ def readeyes() -> list[list[str]]:  # type: ignore # sourcery skip: low-code-qua
         file_6.close()
         file_7.close()
         file_8.close()
-        return [eye_01, eye_02, eye_03, eye_04, eye_05, eye_06, eye_07, eye_08]
+        listEyes = [eye_01, eye_02, eye_03, eye_04, eye_05, eye_06, eye_07, eye_08]
+        return listEyes
 
-
-def olhopiscando(eyes) -> None:  # sourcery skip: low-code-quality
+def olhopiscando(eyes) -> None:
     """
     The olhopiscando function is a function that prints out the eyes of the olho de boi.
     It has no parameters and returns nothing.
@@ -78,51 +91,51 @@ def olhopiscando(eyes) -> None:  # sourcery skip: low-code-quality
     :param eyes: Pass the eyes to the olhopiscando function
     :return: None
     """
-
-    while True:
-        for i in eyes[0]:
-            print(i)
+    for i in eyes[0]:
+        print(i)
         winsound.Beep(randint(420, 500), 180)
-        sleep(randint(2, 5))
-        clear()
-        for i in eyes[1]:
-            print(i)    
+    sleep(randint(2, 5))
+    clear()
+    for i in eyes[1]:
+        print(i)    
+    sleep(0.02)
+    clear()
+    for i in eyes[2]:
+        print(i)
+    clear()
+    for i in eyes[3]:
+        print(i)
+    sleep(randint(1, 2))
+    winsound.Beep(randint(410, 460), 180)
+    clear()
+    for i in eyes[4]:
+        print(i)
+    clear()
+    for i in eyes[5]:
+        print(i)
+    for i in eyes[6]:
+        print(i)
+    sleep(0.2)
+    clear()
+    for i in eyes[7]:
+        print(i)
+    sleep(randint(1, 3))
+    winsound.Beep(randint(410, 450), 180)
+    clear()
+    olhopiscando(eyes)
 
-        sleep(0.02)
-        clear()
-        for i in eyes[2]:
-            print(i)
-
-        clear()
-        for i in eyes[3]:
-            print(i)
-
-        sleep(randint(1, 2))
-        winsound.Beep(randint(410, 460), 180)
-        clear()
-        for i in eyes[4]:
-            print(i)
-
-        clear()
-        for i in eyes[5]:
-            print(i)
-
-        for i in eyes[6]:
-            print(i)
-
-        sleep(0.2)
-        clear()
-
-        for i in eyes[7]:
-            print(i)
-        sleep(randint(1, 3))
-        winsound.Beep(randint(410, 450), 180)
-        clear()
-
-        olhopiscando(eyes)
+def continuePiscando() -> None:
+    t1 = threading.Thread(target= piscandoolhos, name='piscandoolhos', daemon=True)
+    t1.start()
+    while piscandoolhos:
+       olhopiscando(readeyes())
 
 
 def unknownCommand():
+    """
+    If the user types in an unknown command, the program will ask the user to type in a known command.
+    """ 
+
     while True:
         print("Unknow command. Type 'help' for list of available commands.")
         command = input().lower()
@@ -131,6 +144,9 @@ def unknownCommand():
 
 
 def boot() -> None:  # type: ignore
+    """
+    It plays a sound, then prints a file line by line, then prints another file, then asks for input.
+    """
 
     winsound.PlaySound(
                 './resources/sounds/TerminalPowerOn.wav', winsound.SND_FILENAME | winsound.SND_NOSTOP)
@@ -155,6 +171,9 @@ def boot() -> None:  # type: ignore
         unknownCommand()
 
 def programa() -> None:
+    """
+    It opens a file, reads it line by line, and prints it out with a delay.
+    """
     while True:
         with open('./resources/terminals/help/help.txt', 'r', encoding="utf-8") as file:
 
@@ -176,7 +195,7 @@ def programa() -> None:
 boot()
 # programa()
 
-"""
+'''
 class MyThread(threading.Thread):
     def __init__(self, *args, **kwargs) -> None:    
         # creating thread
