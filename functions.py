@@ -1,4 +1,5 @@
 # Mostra sequência do olho piscando
+from codecs import ignore_errors
 import os
 import sys
 import time
@@ -6,17 +7,24 @@ import winsound
 from random import randint
 from time import sleep
 import threading
+from click import command
+from sqlalchemy import false, true
 from sympy import O
 import os, glob
 
-
-path = './resources/terminals/help'
-commandlist = []
-with open(path + '/' + "help_commands.txt", 'r+', encoding="utf-8") as f:
-    for i in f:
-        commandlist.append(i.rsplit(('\n')))
-    print(i)
-
+def terminalCommands() -> list:
+    """
+    It reads a text file and returns a list of the lines in the text file
+    :return: A list of commands
+    """
+    path = './resources/terminals/help'
+    commandlist = []
+    with open(path + '/help_commands.txt', 'r+', encoding="utf-8") as file:
+        for i in file:
+            commandlist.append(i)
+        for i in range(0, len(commandlist)):
+           commandlist[i] = commandlist[i].rstrip("\n")
+    return commandlist
 
 
 def delay_print(se) -> None:
@@ -41,19 +49,10 @@ def clear() -> int:
     """
     return os.system('cls' if os.name == 'nt' else 'clear')
 
-def waitForCommand():
+def waitForCommand() -> None:
     exit_var = input('[guest@local]# ').rsplit('\n')
 
-piscandoolhos = 0
-def capturarThread() -> None:
-    """
-    It captures the input from the user and sets the global variable piscandoolhos to 1.
-    """
-    global piscandoolhos
-    input()
-    piscandoolhos = 1
-
-def readeyes() -> list:  # type: ignore # sourcery skip: low-code-quality
+def readeyes() -> list:    # type: ignore # sourcery skip: low-code-quality
     """
     The readeyes function reads in the text files containing the eye emojis and returns a list of lists.
     The outer list contains 8 elements, each element is a list containing all of the lines from an individual file.
@@ -80,8 +79,7 @@ def readeyes() -> list:  # type: ignore # sourcery skip: low-code-quality
         file_6.close()
         file_7.close()
         file_8.close()
-        listEyes = [eye_01, eye_02, eye_03, eye_04, eye_05, eye_06, eye_07, eye_08]
-        return listEyes
+        return [eye_01, eye_02, eye_03, eye_04, eye_05, eye_06, eye_07, eye_08]
 
 def olhopiscando(eyes) -> None:
     """
@@ -93,12 +91,12 @@ def olhopiscando(eyes) -> None:
     """
     for i in eyes[0]:
         print(i)
-        winsound.Beep(randint(420, 500), 180)
-    sleep(randint(2, 5))
+    winsound.Beep(randint(420, 500), 180)
+    sleep(randint(1, 2))
     clear()
     for i in eyes[1]:
         print(i)    
-    sleep(0.02)
+    sleep(0.01)
     clear()
     for i in eyes[2]:
         print(i)
@@ -122,16 +120,23 @@ def olhopiscando(eyes) -> None:
     sleep(randint(1, 3))
     winsound.Beep(randint(410, 450), 180)
     clear()
-    olhopiscando(eyes)
+
+piscandoolhos = true
+def capturarThread() -> None:
+    """
+    It captures the input from the user and sets the global variable piscandoolhos to 1.
+    """
+    global piscandoolhos
+    input()
+    piscandoolhos = false
 
 def continuePiscando() -> None:
-    t1 = threading.Thread(target= piscandoolhos, name='piscandoolhos', daemon=True)
+    t1 = threading.Thread(target= olhopiscando(readeyes()), name='piscandoolhos', daemon=True)
     t1.start()
     while piscandoolhos:
-       olhopiscando(readeyes())
+       print("\nPress enter to continue")
 
-
-def unknownCommand():
+def unknownCommand() -> None:
     """
     If the user types in an unknown command, the program will ask the user to type in a known command.
     """ 
@@ -166,7 +171,7 @@ def boot() -> None:  # type: ignore
             time.sleep(0.01)
 
         z = input("")
-        if z == 'help':
+        if z in terminalCommands():
             programa()
         unknownCommand()
 
@@ -190,38 +195,5 @@ def programa() -> None:
         if exit_var != "":
             exit()
 
-
-# olhopiscando(readeyes())
+continuePiscando()
 boot()
-# programa()
-
-'''
-class MyThread(threading.Thread):
-    def __init__(self, *args, **kwargs) -> None:    
-        # creating thread
-             
-        super(MyThread, self).__init__(*args, **kwargs)
-        self._stop = threading.Event()
-
-        t1 = threading.Thread(target= olhopiscando(readeyes()), args=(10,))
-        t2 = threading.Thread(target=, args=(10,))
-
-        # function using _stop function
-        def stop(self):
-            self._stop.set()
-
-        def stopped(self):
-            return self._stop.isSet()
-            
-         def run(self):
-            while True:
-                if self.stopped():
-                    return
-        
-        #wait until thread 1 is completely executed
-        t1.join()
-        # wait until thread 2 is completely executed
-        t2.join()
-        # both threads completely executed
-        delay_print("Exiting terminal...")
-"""
