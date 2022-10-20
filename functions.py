@@ -18,11 +18,10 @@ def terminalCommands() -> list:
     """
     path = './resources/terminals/help'
     commandlist = []
-    with open(path + '/help_commands.txt', 'r+', encoding="utf-8") as file:
-        for i in file:
-            commandlist.append(i)
+    with open(f'{path}/help_commands.txt', 'r+', encoding="utf-8") as file:
+        commandlist.extend(iter(file))
         for i in range(len(commandlist)):
-            commandlist[i] = commandlist[i].rstrip("\n")
+            commandlist[i] = commandlist[i]
     return commandlist
 
 
@@ -167,9 +166,9 @@ def unknownCommand() -> None:
         winsound.PlaySound(
                 './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
         delay_print("Unknow command. Type 'help' for list of available commands.")
-        command = input().lower()
+        command = input('[guest@local]# ').lower()
         if command == 'help':
-            programa()
+            programa(command)
 
 
 def boot() -> None:  # type: ignore
@@ -203,13 +202,26 @@ def programa(standard = None) -> None:
     """
     It opens a file, reads it line by line, and prints it out with a delay.
     """
+    # Checking if the user typed in the command 'exit' and if they did, it exits the program.
+    if standard == 'exit':
+         with open('./resources/terminals/exit/exithelp.txt', 'r', encoding="utf-8") as file:
+            for i in file:
+                winsound.PlaySound(
+                    './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
+                delay_print(i)
+                winsound.PlaySound(
+                    './resources/sounds/TerminalTypingComputer.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
+            exit()
+    
+    
+    helpCommand()
 
-    if standard != None:
-        print("")
 
+    
+
+def helpCommand() -> NoReturn:
     while True:
         with open('./resources/terminals/help/help.txt', 'r', encoding="utf-8") as file:
-
             for i in file:
                 winsound.PlaySound(
                     './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
@@ -218,9 +230,5 @@ def programa(standard = None) -> None:
                     './resources/sounds/TerminalTypingComputer.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
 
         print("\n")
-
-        exit_var = input('[guest@local]# ').rsplit('\n')
-        if exit_var != "":
-            exit()
 
 olhopiscando(readeyes())
