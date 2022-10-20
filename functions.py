@@ -161,7 +161,9 @@ def unknownCommand() -> None:
     """ 
 
     while True:
-        print("Unknow command. Type 'help' for list of available commands.")
+        winsound.PlaySound(
+                './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
+        delay_print("Unknow command. Type 'help' for list of available commands.")
         command = input().lower()
         if command == 'help':
             programa()
@@ -190,14 +192,18 @@ def boot() -> None:  # type: ignore
             time.sleep(0.01)
 
         z = input("")
-        if z in terminalCommands().rsplit("\n"):
-            programa()
+        if z in terminalCommands():
+            programa(z)
         unknownCommand()
 
-def programa() -> None:
+def programa(standard = None) -> None:
     """
     It opens a file, reads it line by line, and prints it out with a delay.
     """
+
+    if standard != None:
+        print("")
+
     while True:
         with open('./resources/terminals/help/help.txt', 'r', encoding="utf-8") as file:
 
