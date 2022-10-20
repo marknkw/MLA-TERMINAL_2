@@ -51,7 +51,7 @@ def waitForCommand() -> None:
     """
     It waits for a command to be entered, then it splits the command into a list of commands
     """
-    exit_var = input('[guest@local]# ').rsplit('\n')
+    exit_var = input('[guest@local]# ')
 
 def readeyes() -> list:    # type: ignore # sourcery skip: low-code-quality
     """
@@ -82,62 +82,30 @@ def readeyes() -> list:    # type: ignore # sourcery skip: low-code-quality
         file_8.close()
         return [eye_01, eye_02, eye_03, eye_04, eye_05, eye_06, eye_07, eye_08]
 
+def blinkingEyes(eyes, j) -> None:  # type: ignore
+
+    if j % 2 != 0:
+        for i in eyes[j]:
+            print(i)
+        winsound.Beep(randint(420, 500), 180)
+        sleep(randint(1, 2))
+    else:
+        for i in eyes[j]:
+            print(i)
+
+    clear()
+
 def olhopiscando(eyes) -> None:  # sourcery skip: extract-duplicate-method
     
     # A function that prints the eyes blinking.
     while True:
         try:
-            for i in eyes[0]:
-                print(i)
-            winsound.Beep(randint(420, 500), 180)
-            
-            sleep(randint(1, 2))
-            clear()
+            for i in range(len(eyes)):
+                blinkingEyes(eyes, i)  # type: ignore
 
-            for i in eyes[1]:
-                print(i)  
-            sleep(0.01)
-            clear()
-            for i in eyes[2]:
-                print(i)
-            
-            clear()
-
-            for i in eyes[3]:
-                print(i)
-            
-            sleep(randint(1, 2))
-            winsound.Beep(randint(410, 460), 180)
-            clear()
-
-            for i in eyes[4]:
-                print(i)
-            
-            clear()
-
-            for i in eyes[5]:
-                print(i)
-            
-            clear()
-
-            for i in eyes[6]:
-                print(i)
-             
-            sleep(0.2)
-            clear()
-            
-            for i in eyes[7]:
-                print(i)
-               
-            sleep(randint(1, 3))
-            winsound.Beep(randint(410, 450), 180)
-            clear()
-            
         except KeyboardInterrupt:
             clear()
             boot()
-
-
 
 """
 piscandoolhos = 0
@@ -165,8 +133,9 @@ def unknownCommand() -> None:
     while True:
         winsound.PlaySound(
                 './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
-        delay_print("Unknow command. Type 'help' for list of available commands.")
-        command = input('[guest@local]# ').lower()
+        delay_print("Unknow command. Type 'help' for list of available commands.\n")
+
+        command = input('[guest@local]# ')
         if command == 'help':
             programa(command)
 
@@ -219,7 +188,7 @@ def programa(standard = None) -> None:
 
     
 
-def helpCommand() -> NoReturn:
+def helpCommand():
     while True:
         with open('./resources/terminals/help/help.txt', 'r', encoding="utf-8") as file:
             for i in file:
