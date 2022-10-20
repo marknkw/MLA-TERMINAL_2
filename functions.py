@@ -84,6 +84,7 @@ def readeyes() -> list:    # type: ignore # sourcery skip: low-code-quality
 
 def blinkingEyes(eyes, j) -> None:  # type: ignore
 
+    # Printing the eyes and making a sound.
     if j % 2 != 0:
         for i in eyes[j]:
             print(i)
@@ -133,7 +134,9 @@ def unknownCommand() -> None:
     while True:
         winsound.PlaySound(
                 './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
-        delay_print("Unknow command. Type 'help' for list of available commands.\n")
+        z = "Unknow command. Type 'help' for list of available commands.\n"
+        for i in z:    
+            delay_print(i)
 
         command = input('[guest@local]# ')
         if command == 'help':
@@ -173,7 +176,7 @@ def programa(standard = None) -> None:
     """
     # Checking if the user typed in the command 'exit' and if they did, it exits the program.
     if standard == 'exit':
-         with open('./resources/terminals/exit/exithelp.txt', 'r', encoding="utf-8") as file:
+         with open('./resources/terminals/exit/help.txt', 'r', encoding="utf-8") as file:
             for i in file:
                 winsound.PlaySound(
                     './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
