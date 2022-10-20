@@ -8,9 +8,8 @@ from random import randint
 from time import sleep
 import threading
 from click import command
-from sqlalchemy import false, true
 from sympy import O
-import os, glob
+import os
 
 def terminalCommands() -> list:
     """
@@ -22,8 +21,8 @@ def terminalCommands() -> list:
     with open(path + '/help_commands.txt', 'r+', encoding="utf-8") as file:
         for i in file:
             commandlist.append(i)
-        for i in range(0, len(commandlist)):
-           commandlist[i] = commandlist[i].rstrip("\n")
+        for i in range(len(commandlist)):
+            commandlist[i] = commandlist[i].rstrip("\n")
     return commandlist
 
 
@@ -81,60 +80,80 @@ def readeyes() -> list:    # type: ignore # sourcery skip: low-code-quality
         file_8.close()
         return [eye_01, eye_02, eye_03, eye_04, eye_05, eye_06, eye_07, eye_08]
 
-def olhopiscando(eyes) -> None:
-    """
-    The olhopiscando function is a function that prints out the eyes of the olho de boi.
-    It has no parameters and returns nothing.
+def olhopiscando(eyes) -> None:  # sourcery skip: extract-duplicate-method
+    
+    # A function that prints the eyes blinking.
+    while True:
+        try:
+            for i in eyes[0]:
+                print(i)
+            winsound.Beep(randint(420, 500), 180)
+            
+            sleep(randint(1, 2))
+            clear()
 
-    :param eyes: Pass the eyes to the olhopiscando function
-    :return: None
-    """
-    for i in eyes[0]:
-        print(i)
-    winsound.Beep(randint(420, 500), 180)
-    sleep(randint(1, 2))
-    clear()
-    for i in eyes[1]:
-        print(i)    
-    sleep(0.01)
-    clear()
-    for i in eyes[2]:
-        print(i)
-    clear()
-    for i in eyes[3]:
-        print(i)
-    sleep(randint(1, 2))
-    winsound.Beep(randint(410, 460), 180)
-    clear()
-    for i in eyes[4]:
-        print(i)
-    clear()
-    for i in eyes[5]:
-        print(i)
-    for i in eyes[6]:
-        print(i)
-    sleep(0.2)
-    clear()
-    for i in eyes[7]:
-        print(i)
-    sleep(randint(1, 3))
-    winsound.Beep(randint(410, 450), 180)
-    clear()
+            for i in eyes[1]:
+                print(i)  
+            sleep(0.01)
+            clear()
+            for i in eyes[2]:
+                print(i)
+            
+            clear()
 
-piscandoolhos = true
-def capturarThread() -> None:
-    """
+            for i in eyes[3]:
+                print(i)
+            
+            sleep(randint(1, 2))
+            winsound.Beep(randint(410, 460), 180)
+            clear()
+
+            for i in eyes[4]:
+                print(i)
+            
+            clear()
+
+            for i in eyes[5]:
+                print(i)
+            
+            clear()
+
+            for i in eyes[6]:
+                print(i)
+             
+            sleep(0.2)
+            clear()
+            
+            for i in eyes[7]:
+                print(i)
+               
+            sleep(randint(1, 3))
+            winsound.Beep(randint(410, 450), 180)
+            clear()
+            
+        except KeyboardInterrupt:
+            clear()
+            boot()
+
+
+
+"""
+piscandoolhos = 0
+
+
+    def capturarThread() -> None:
+    
     It captures the input from the user and sets the global variable piscandoolhos to 1.
-    """
+    
     global piscandoolhos
     input()
-    piscandoolhos = false
+    piscandoolhos = 1
 
 def continuePiscando() -> None:
     t1 = threading.Thread(target= olhopiscando(readeyes()), name='piscandoolhos', daemon=True)
     t1.start()
     while piscandoolhos:
-       print("\nPress enter to continue")
+       print("Press enter to continue")"""
 
 def unknownCommand() -> None:
     """
@@ -171,7 +190,7 @@ def boot() -> None:  # type: ignore
             time.sleep(0.01)
 
         z = input("")
-        if z in terminalCommands():
+        if z in terminalCommands().rsplit("\n"):
             programa()
         unknownCommand()
 
@@ -195,5 +214,4 @@ def programa() -> None:
         if exit_var != "":
             exit()
 
-continuePiscando()
-boot()
+olhopiscando(readeyes())
