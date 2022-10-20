@@ -47,11 +47,11 @@ def clear() -> int:
     """
     return os.system('cls' if os.name == 'nt' else 'clear')
 
-def waitForCommand() -> None:
+def waitForCommand() -> str:
     """
     It waits for a command to be entered, then it splits the command into a list of commands
     """
-    exit_var = input('[guest@local]# ')
+    return input('[guest@local]# ')
 
 def readeyes() -> list:    # type: ignore # sourcery skip: low-code-quality
     """
@@ -158,6 +158,7 @@ def boot() -> None:  # type: ignore
                 './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
             delay_print(i)
 
+    # Printing the file boot_2.txt line by line with a delay of 0.01 seconds.
     with open('./resources/boot/boot_2.txt', 'r') as fe:
         prt = fe.readlines()
         for ltr in prt:
@@ -165,17 +166,22 @@ def boot() -> None:  # type: ignore
             sys.stdout.flush()
             time.sleep(0.01)
 
-        z = input("")
-        if z in terminalCommands():
-            programa(z)
-        unknownCommand()
+    command_list_terminal = waitForCommand().rstrip("\n")
+    if command_list_terminal in terminalCommands():
+        programa(command_list_terminal)
+    unknownCommand()
 
-def programa(standard = None) -> None:
+def showList():
+    
+    return showlist()
+        
+
+def programa(comando = unknownCommand()) -> None:
     """
     It opens a file, reads it line by line, and prints it out with a delay.
     """
     # Checking if the user typed in the command 'exit' and if they did, it exits the program.
-    if standard == 'exit':
+    if comando == 'exit':
          with open('./resources/terminals/exit/help.txt', 'r', encoding="utf-8") as file:
             for i in file:
                 winsound.PlaySound(
@@ -184,9 +190,18 @@ def programa(standard = None) -> None:
                 winsound.PlaySound(
                     './resources/sounds/TerminalTypingComputer.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
             exit()
+
+    elif comando == 'list':
+         with open('./resources/terminals/exit/help.txt', 'r', encoding="utf-8") as file:
+            for i in file:
+                winsound.PlaySound(
+                    './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
+                delay_print(i)
+                winsound.PlaySound(
+                    './resources/sounds/TerminalTypingComputer.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
+            showList()
     
     
-    helpCommand()
 
 
     
