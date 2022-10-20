@@ -50,6 +50,9 @@ def clear() -> int:
     return os.system('cls' if os.name == 'nt' else 'clear')
 
 def waitForCommand() -> None:
+    """
+    It waits for a command to be entered, then it splits the command into a list of commands
+    """
     exit_var = input('[guest@local]# ').rsplit('\n')
 
 def readeyes() -> list:    # type: ignore # sourcery skip: low-code-quality
