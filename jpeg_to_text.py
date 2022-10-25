@@ -38,7 +38,7 @@ def covertImageToAscii(fileName, cols, scale, moreLevels):
     global gscale1, gscale2
  
     # open image and convert to grayscale
-    image: Image = Image.open(fileName).convert('L')
+    image: Image = Image.open('./resourses/sphere/sphere_jpgs' + fileName).convert('L')
  
     # store dimensions
     W, H = image.size[0], image.size[1]
@@ -103,12 +103,12 @@ def covertImageToAscii(fileName, cols, scale, moreLevels):
     # return txt image
     return aimg
  
-def main():
+def main() -> None:
     # create parser
     descStr: Literal['This is converting PIL jpegs to txt to be animated…'] = "This is converting PIL jpegs to txt to be animated."
     parser: argparse.ArgumentParser = argparse.ArgumentParser(description=descStr)
     # add expected arguments
-    parser.add_argument('--file', dest='imgFile', required=True)
+    parser.add_argument('--file', dest='./resourses/sphere/sphere_jpgs/'.rstrip('\n') + imgFile, required=True)
     parser.add_argument('--scale', dest='scale', required=False)
     parser.add_argument('--out', dest='outFile', required=False)
     parser.add_argument('--cols', dest='cols', required=False)
@@ -148,7 +148,7 @@ def main():
  
     # clean
     f.close()
-    print("Text file written to %s" % outFile)
+    terminal.delay_print("Text file written to %s" % outFile)
  
 # call main without worring about function's order
 if __name__ == '__main__':
