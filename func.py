@@ -4,10 +4,11 @@
 import os
 import sys
 import time
-from typing import Literal, NoReturn
+from typing import Any, Literal, NoReturn
 import winsound
 from random import randint
 from time import sleep
+from PIL import Image, ImageSequence
 
 def terminalCommands() -> list:
     """
@@ -84,7 +85,7 @@ def readeyes():
         file_8.close()
         return [eye_01, eye_02, eye_03, eye_04, eye_05, eye_06, eye_07, eye_08]
 
-def blinkingEyes(eyes, j):
+def blinkingEyes(eyes, j) -> None:
 
     # Printing the eyes and making a sound.
     if j % 2 != 0:
@@ -98,7 +99,33 @@ def blinkingEyes(eyes, j):
 
     clear()
 
-def olhopiscando(eyes):
+def monadSphere() -> None:
+    while True:
+        with Image.open(('./resources/eyes/gifs/monad_sphere.gif')) as gif:
+            gif.seek(1)
+            try:
+                while 1:
+                    gif.seek(gif.tell()+1)
+                    gif.show()
+            except KeyboardInterrupt or EOFError:
+                clear()
+                gif.close()
+                boot()
+            
+
+
+"""def monadSphereFunctioning() -> NoReturn:
+    
+    # A function that prints the sphere spinning.
+    while True:
+        try:
+            monadSphere()
+        except KeyboardInterrupt:
+            clear()
+            boot()"""
+
+
+def olhopiscando(eyes) -> NoReturn:
     
     # A function that prints the eyes blinking.
     while True:
@@ -250,3 +277,5 @@ def programa(comando = "exit") -> NoReturn:
     
     else:
         olhopiscando((readeyes()))
+
+monadSphere()
