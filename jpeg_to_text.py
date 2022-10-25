@@ -1,4 +1,4 @@
-# Python code to convert an image to ASCII image.
+# Python code to convert an image to txt
 from io import TextIOWrapper
 import sys
 import random
@@ -11,7 +11,7 @@ from PIL import Image
  
 
 # 70 levels of gray
-gscale1 = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
+gscale1: Literal['$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]…'] = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\^`.'
  
 # 10 levels of gray
 gscale2: Literal['@%#*+=-:. '] = '@%#*+=-:. '
@@ -135,7 +135,7 @@ def main():
     if args.cols:
         cols = int(args.cols)
  
-    terminal.delay_print('Generating ASCII art...')
+    terminal.delay_print('Generating to text...')
     # convert image to ascii txt
     aimg = covertImageToAscii(imgFile, cols, scale, args.moreLevels)
  
