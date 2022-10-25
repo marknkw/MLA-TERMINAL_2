@@ -4,6 +4,7 @@ import sys
 import random
 import argparse
 from typing import Any, Literal
+from typing_extensions import LiteralString
 import numpy as np
 import math
 import func as terminal 
@@ -38,7 +39,7 @@ def covertImageToAscii(fileName, cols, scale, moreLevels):
     global gscale1, gscale2
  
     # open image and convert to grayscale
-    image: Image = Image.open('./resourses/sphere/sphere_jpgs' + fileName).convert('L')
+    image: Image = Image.open(fileName).convert('L')
  
     # store dimensions
     W, H = image.size[0], image.size[1]
@@ -108,7 +109,7 @@ def main() -> None:
     descStr: Literal['This is converting PIL jpegs to txt to be animated…'] = "This is converting PIL jpegs to txt to be animated."
     parser: argparse.ArgumentParser = argparse.ArgumentParser(description=descStr)
     # add expected arguments
-    parser.add_argument('--file', dest='./resourses/sphere/sphere_jpgs/'.rstrip('\n') + imgFile, required=True)
+    parser.add_argument('--file', dest= 'imgFile', required=True)
     parser.add_argument('--scale', dest='scale', required=False)
     parser.add_argument('--out', dest='outFile', required=False)
     parser.add_argument('--cols', dest='cols', required=False)
@@ -117,7 +118,10 @@ def main() -> None:
     # parse args
     args: argparse.Namespace = parser.parse_args()
    
-    imgFile = args.imgFile
+    # set input file
+    imgFile: Literal['./resourses/sphere/sphere_jpgs/sphere.jpeg'] = './resourses/sphere/sphere_jpgs/sphere.jpeg'
+    if args.imgFile:
+        imgFile = args.imgFile
  
     # set output file
     outFile: Literal['./resourses/sphere/out.txt'] = './resourses/sphere/out.txt'
@@ -135,7 +139,7 @@ def main() -> None:
     if args.cols:
         cols = int(args.cols)
  
-    terminal.delay_print('Generating to text...')
+    terminal.delay_print('Transforming jpg into text...')
     # convert image to ascii txt
     aimg = covertImageToAscii(imgFile, cols, scale, args.moreLevels)
  
