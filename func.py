@@ -1,3 +1,4 @@
+
 # Mostra sequência do olho piscando
 
 import os
@@ -249,5 +250,3 @@ def programa(comando = "exit") -> NoReturn:
     
     else:
         olhopiscando((readeyes()))
-
-olhopiscando((readeyes()))
