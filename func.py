@@ -3,6 +3,7 @@
 import os
 import sys
 import time
+from typing import Literal, NoReturn
 import winsound
 from random import randint
 from time import sleep
@@ -12,7 +13,7 @@ def terminalCommands() -> list:
     It reads a text file and returns a list of the lines in the text file
     :return: A list of commands
     """
-    path = 'resources/terminals/help'
+    path: Literal['resources/terminals/help'] = 'resources/terminals/help'
     commandlist = []
     with open(f'{path}/help_commands.txt', 'r+', encoding="utf-8") as file:
         commandlist.extend(iter(file))
@@ -145,7 +146,7 @@ def unknownCommand() -> None: # type: ignore
 
 
 
-def boot() -> None:  # type: ignore
+def boot() -> NoReturn:  # type: ignore
     """
     It plays a sound, then prints a file line by line, then prints another file, then asks for input.
     """
@@ -167,14 +168,26 @@ def boot() -> None:  # type: ignore
             sys.stdout.write(ltr)
             sys.stdout.flush()
             time.sleep(0.01)
-
+    
+    """
+    The boot function plays a sound, then prints a file line by line, then prints another file, 
+    then asks for input.
+    
+    
+    :return: A none type
+    """
     command_list_terminal = waitForCommand().rstrip("\n")
     if command_list_terminal in terminalCommands():
         programa(command_list_terminal)
     else:
         unknownCommand()
 
-def helpCommand():
+def helpCommand() -> NoReturn:
+    """
+    The helpCommand function is a function that prints out the help.txt file in the resources/terminals/help folder.
+    
+    :return: The help
+    """
     while True:
         with open('./resources/terminals/help/help.txt', 'r', encoding="utf-8") as file:
             for i in file:

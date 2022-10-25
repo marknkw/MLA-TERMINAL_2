@@ -1,5 +1,5 @@
 
 # Mostra sequência do olho piscando
-import functions as terminal
+import func as terminal
 
 terminal.boot() # type: ignore

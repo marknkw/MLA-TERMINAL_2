@@ -59,14 +59,14 @@ def readeyes() -> list:    # type: ignore # sourcery skip: low-code-quality
 
     with open('resources/eyes/eye_01.txt', 'r', encoding='utf-8') as file_1, open('resources/eyes/eye_02.txt', 'r', encoding='utf-8') as file_2, open('resources/eyes/eye_03.txt', 'r', encoding='utf-8') as file_3, open('resources/eyes/eye_04.txt', 'r', encoding='utf-8') as file_4, open('resources/eyes/eye_05.txt', 'r', encoding='utf-8') as file_5, open('resources/eyes/eye_06.txt', 'r', encoding='utf-8') as file_6, open('resources/eyes/eye_07.txt', 'r', encoding='utf-8') as file_7, open('resources/eyes/eye_08.txt', 'r', encoding='utf-8') as file_8:
 
-        eye_01 = file_1.readlines()
-        eye_02 = file_2.readlines()
-        eye_03 = file_3.readlines()
-        eye_04 = file_4.readlines()
-        eye_05 = file_5.readlines()
-        eye_06 = file_6.readlines()
-        eye_07 = file_7.readlines()
-        eye_08 = file_8.readlines()
+        eye_01: list[str] = file_1.readlines()
+        eye_02: list[str] = file_2.readlines()
+        eye_03: list[str] = file_3.readlines()
+        eye_04: list[str] = file_4.readlines()
+        eye_05: list[str] = file_5.readlines()
+        eye_06: list[str] = file_6.readlines()
+        eye_07: list[str] = file_7.readlines()
+        eye_08: list[str] = file_8.readlines()
 
         file_1.close()
         file_2.close()
