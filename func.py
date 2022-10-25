@@ -14,11 +14,13 @@ def terminalCommands() -> list:
     :return: A list of commands
     """
     path: Literal['resources/terminals/help'] = 'resources/terminals/help'
-    commandlist = []
     with open(f'{path}/help_commands.txt', 'r+', encoding="utf-8") as file:
-        commandlist.extend(iter(file))
+
+        commandlist = file.readlines()
+        time.sleep(1)
         for i in range(len(commandlist)):
-            commandlist[i] = commandlist[i]
+            commandlist[i] = commandlist[i].rstrip('\n')
+        
     return commandlist
 
 
@@ -48,6 +50,8 @@ def waitForCommand() -> str:
     """
     It waits for a command to be entered, then it splits the command into a list of commands
     """
+    print(" ")
+
     return input('[guest@local]# ')
 
 def readeyes():
@@ -60,14 +64,14 @@ def readeyes():
 
     with open('resources/eyes/eye_01.txt', 'r', encoding='utf-8') as file_1, open('resources/eyes/eye_02.txt', 'r', encoding='utf-8') as file_2, open('resources/eyes/eye_03.txt', 'r', encoding='utf-8') as file_3, open('resources/eyes/eye_04.txt', 'r', encoding='utf-8') as file_4, open('resources/eyes/eye_05.txt', 'r', encoding='utf-8') as file_5, open('resources/eyes/eye_06.txt', 'r', encoding='utf-8') as file_6, open('resources/eyes/eye_07.txt', 'r', encoding='utf-8') as file_7, open('resources/eyes/eye_08.txt', 'r', encoding='utf-8') as file_8:
 
-        eye_01 = file_1.readlines()
-        eye_02 = file_2.readlines()
-        eye_03 = file_3.readlines()
-        eye_04 = file_4.readlines()
-        eye_05 = file_5.readlines()
-        eye_06 = file_6.readlines()
-        eye_07 = file_7.readlines()
-        eye_08 = file_8.readlines()
+        eye_01: list[str] = file_1.readlines()
+        eye_02: list[str] = file_2.readlines()
+        eye_03: list[str] = file_3.readlines()
+        eye_04: list[str] = file_4.readlines()
+        eye_05: list[str] = file_5.readlines()
+        eye_06: list[str] = file_6.readlines()
+        eye_07: list[str] = file_7.readlines()
+        eye_08: list[str] = file_8.readlines()
 
         file_1.close()
         file_2.close()
@@ -128,21 +132,22 @@ def continuePiscando() -> None:
 
 
 
-def unknownCommand() -> None: # type: ignore
+def unknownCommand() -> NoReturn: # type: ignore
     """
     If the user types in an unknown command, the program will ask the user to type in a known command.
     """ 
 
     while True:
+
         winsound.PlaySound(
                 './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
-        z = "Unknow command. Type 'help' for list of available commands.".rstrip('\n')
+        z = "Unknow command. Type 'help' for list of available commands."
         for i in z:    
             delay_print(i)
 
-        command = input('[guest@local]# ')
-        if command == 'help':
-            programa(command)
+        command: str = waitForCommand()
+        if command.rstrip('\n') == 'help':
+            programa(command.rstrip('\n'))
 
 
 
@@ -177,6 +182,9 @@ def boot() -> NoReturn:  # type: ignore
     :return: A none type
     """
     command_list_terminal = waitForCommand().rstrip("\n")
+
+    clear()
+
     if command_list_terminal in terminalCommands():
         programa(command_list_terminal)
     else:
@@ -199,13 +207,18 @@ def helpCommand() -> NoReturn:
 
         
 
-def programa(comando = "exit"):
+def programa(comando = "exit") -> NoReturn:
     """
-    It opens a file, reads it line by line, and prints it out with a delay.
+    The programa function is the main function of the game. It will be called at every iteration of a loop that
+    controls the flow of our game. The programa function will take in a string as an argument, and depending on what 
+    that string is, it will do different things. If you pass 'exit' to this function, it'll close out your game session 
+    and exit back into your command prompt.
+    :param comando=&quot;exit&quot;: Close the programa function and return to the main menu
+    :return: The text of the file in the path passed as parameter
     """
-    # Checking if the user typed in the command 'exit' and if they did, it exits the program.
+   
     if comando == 'exit':
-         with open('./resources/terminals/exit/help.txt', 'r', encoding="utf-8") as file:
+        with open('./resources/terminals/exit/exit.txt', 'r', encoding="utf-8") as file:
             for i in file:
                 winsound.PlaySound(
                     './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
@@ -214,18 +227,27 @@ def programa(comando = "exit"):
                     './resources/sounds/TerminalTypingComputer.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
             exit()
 
-    elif comando == 'list':
-         with open('./resources/terminals/exit/help.txt', 'r', encoding="utf-8") as file:
+    elif comando == 'help':
+        with open('./resources/terminals/help/help.txt', 'r', encoding="utf-8") as file:
             for i in file:
                 winsound.PlaySound(
                     './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
                 delay_print(i)
                 winsound.PlaySound(
                     './resources/sounds/TerminalTypingComputer.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
-            
+                
+        programa(waitForCommand())
+
+    elif comando == 'list':
+        with open('./resources/terminals/exit/help.txt', 'r', encoding="utf-8") as file:
+            for i in file:
+                winsound.PlaySound(
+                    './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
+                delay_print(i)
+                winsound.PlaySound(
+                    './resources/sounds/TerminalTypingComputer.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
     
-olhopiscando(readeyes())    
+    else:
+        olhopiscando((readeyes()))
 
-
-    
-
+olhopiscando((readeyes()))
