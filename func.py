@@ -56,7 +56,7 @@ def waitForCommand() -> str:
 
     return input('[guest@local]# ')
 
-def readeyes():
+def readeyes() -> list[list[str]]:
     """
     The readeyes function reads in the text files containing the eye emojis and returns a list of lists.
     The outer list contains 8 elements, each element is a list containing all of the lines from an individual file.
@@ -99,7 +99,7 @@ def blinkingEyes(eyes, j) -> None:
 
     clear()
 
-def monadSphere() -> None:
+def monadSphere() -> NoReturn:
     while True:
         with Image.open(('./resources/eyes/gifs/monad_sphere.gif')) as gif:
             gif.seek(1)
