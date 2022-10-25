@@ -1,2 +1,1 @@
 Library archive session ready.
-[guest@local]#

@@ -49,7 +49,7 @@ def waitForCommand() -> str:
     """
     return input('[guest@local]# ')
 
-def readeyes() -> list:    # type: ignore # sourcery skip: low-code-quality
+def readeyes():
     """
     The readeyes function reads in the text files containing the eye emojis and returns a list of lists.
     The outer list contains 8 elements, each element is a list containing all of the lines from an individual file.
@@ -78,7 +78,7 @@ def readeyes() -> list:    # type: ignore # sourcery skip: low-code-quality
         file_8.close()
         return [eye_01, eye_02, eye_03, eye_04, eye_05, eye_06, eye_07, eye_08]
 
-def blinkingEyes(eyes, j) -> None:  # type: ignore
+def blinkingEyes(eyes, j):
 
     # Printing the eyes and making a sound.
     if j % 2 != 0:
@@ -92,7 +92,7 @@ def blinkingEyes(eyes, j) -> None:  # type: ignore
 
     clear()
 
-def olhopiscando(eyes) -> None:  # sourcery skip: extract-duplicate-method
+def olhopiscando(eyes):
     
     # A function that prints the eyes blinking.
     while True:
@@ -103,6 +103,7 @@ def olhopiscando(eyes) -> None:  # sourcery skip: extract-duplicate-method
         except KeyboardInterrupt:
             clear()
             boot()
+
 
 """
 piscandoolhos = 0
@@ -122,7 +123,11 @@ def continuePiscando() -> None:
     while piscandoolhos:
        print("Press enter to continue")"""
 
-def unknownCommand() -> None:
+
+
+
+
+def unknownCommand() -> None: # type: ignore
     """
     If the user types in an unknown command, the program will ask the user to type in a known command.
     """ 
@@ -130,13 +135,14 @@ def unknownCommand() -> None:
     while True:
         winsound.PlaySound(
                 './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
-        z = "Unknow command. Type 'help' for list of available commands.\n"
+        z = "Unknow command. Type 'help' for list of available commands.".rstrip('\n')
         for i in z:    
             delay_print(i)
 
         command = input('[guest@local]# ')
         if command == 'help':
             programa(command)
+
 
 
 def boot() -> None:  # type: ignore
@@ -168,9 +174,19 @@ def boot() -> None:  # type: ignore
     else:
         unknownCommand()
 
+def helpCommand():
+    while True:
+        with open('./resources/terminals/help/help.txt', 'r', encoding="utf-8") as file:
+            for i in file:
+                winsound.PlaySound(
+                    './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
+                delay_print(i)
+                winsound.PlaySound(
+                    './resources/sounds/TerminalTypingComputer.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
+
         
 
-def programa(comando = unknownCommand()) -> None:
+def programa(comando = "exit"):
     """
     It opens a file, reads it line by line, and prints it out with a delay.
     """
@@ -193,23 +209,10 @@ def programa(comando = unknownCommand()) -> None:
                 delay_print(i)
                 winsound.PlaySound(
                     './resources/sounds/TerminalTypingComputer.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
-            showList()
+            
     
-    
+olhopiscando(readeyes())    
 
 
     
-
-def helpCommand():
-    while True:
-        with open('./resources/terminals/help/help.txt', 'r', encoding="utf-8") as file:
-            for i in file:
-                winsound.PlaySound(
-                    './resources/sounds/TerminalTypingComputer.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
-                delay_print(i)
-                winsound.PlaySound(
-                    './resources/sounds/TerminalTypingComputer.wav', winsound.SND_PURGE | winsound.SND_ASYNC)
-
-        
-
 
